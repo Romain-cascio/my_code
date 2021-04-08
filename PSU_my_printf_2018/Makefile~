@@ -1,0 +1,33 @@
+##
+## EPITECH PROJECT, 2018
+## Makefile
+## File description:
+## 
+##
+
+NAME    	=       my_printf2
+
+SRC		=	my_printf.c \
+
+OBJ		=	$(SRC:.c=.o)
+
+INCLUDES 	=	-I include
+
+LIBS		=	-L lib -my
+
+CFLAGS		=	-Wall -Werror -Wextra -pedantic -std=c99 $(INCLUDE)
+
+all:	$(NAME)
+
+$(NAME):	$(OBJ)
+	gcc -o $(NAME) $(OBJ) $(CFLAGS) $(INCLUDES) $(LIBS)
+
+clean:
+	rm -f $(OBJ)
+
+re:	fclean all
+
+fclean: clean
+	rm -f $(NAME)
+
+.PHONY: all clean fclean re

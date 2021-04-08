@@ -1,0 +1,13 @@
+/*
+** EPITECH PROJECT, 2018
+** 
+** File description:
+** 
+*/
+
+#include "include/my.h"
+
+int main(void)
+{
+    return (my_printf("salut %s toi %d","ca va", 77));
+}

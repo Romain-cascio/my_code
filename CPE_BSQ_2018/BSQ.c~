@@ -1,0 +1,128 @@
+/*
+** EPITECH PROJECT, 2018
+** BSQ
+** File description:
+** 
+*/
+
+#include "openread.c"
+
+int mallocsize(int *nbx, int *nby, char const *str)
+{
+    int i = 0;
+    int j = 0;
+    int col = 0;
+    *nbx = 1;
+    while (str[i-1] != '\n')
+	i++;
+    col = i;
+    while (str[i] != '\0') {
+	if (str[i] == '\n') {
+	    if (*nbx == 1) {
+		*nby = (i - col);
+	    }
+	    *nbx = *nbx + 1;
+	}
+	i++;
+    }
+}
+
+int smallnb(int a, int b, int c)
+{
+    int min = 0;
+    
+    while (min != a && min != b && min != c) {
+	min++;
+    }
+    return(min);
+}
+
+int algoBSQ(int **result, int nbx, int nby)
+{
+    int x = 1;
+    int y = 1;
+    int map = 0;
+    
+    while(x != nbx) {
+	while (y != nby) {
+	    if (result[x][y] > 0) {
+		result[x][y] += smallnb(result[x][y-1], result[x-1][y], result[x-1][y-1]);
+		if (result[x][y] > map) {
+                    map = result[x][y];
+		}
+	    }
+	    y++;
+	}
+	x++;
+	y = 1;
+    }
+    return(map);
+}
+
+int **sizeXY(int **result, int nbx , int nby, int map)
+{
+    int x = nbx - map;
+    int y = nby - map;
+    int saveY = nby;
+    
+    while (nbx != x) {
+	while (nby != y) {
+	    result[nbx][nby] = 'x';
+	    nby--;
+	}
+	nby = saveY;
+	nbx--;
+    }
+    return(result);
+}
+
+int rev_nbr_to_str(int **result, int nbx, int nby, int map)
+{
+    int x = -1;
+    int y = -1;
+    int z = 0;
+    int roty = nby - 1;
+
+    nbx = nbx - 1;
+    nby = nby - 1;
+    while (nbx != x) {
+	while (nby != y) {
+	    if ( result[nbx][nby] == map && z == 0) {
+		result =  sizeXY(result, nbx, nby, map);
+	    	z++;
+	    }
+	    if (result[nbx][nby] > 0 && result[nbx][nby] != 'x')
+		result[nbx][nby] = '.';
+	    if (result[nbx][nby] < 1)
+		result[nbx][nby] = 'o';
+	    nby--;
+	}
+	nby = roty;
+	nbx--;
+    }
+    putchar_result(result, nbx, nby);
+}
+int putchar_result(int **result, int nbx, int nby)
+{
+    int x = 0;
+    int y = 0;
+
+    while (x < nbx) {
+	while (y <= nby) {
+	    my_putchar(result[x][y]);	    
+	    y++;
+	}
+	my_putchar('\n');
+	if (x == nbx)
+	    break;
+	if (x <= nbx) {
+	    x++;
+	    y = 0;
+	}
+    }
+}
+
+void main(int ac, char **av)
+{
+    ExodeMort(av[1], );
+}
