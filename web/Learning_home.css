@@ -1,0 +1,44 @@
+body {
+    background-color: #111;
+    color: #EEE;
+    font-family: 'Roboto Slab', serif;
+  }
+  
+.navbar {
+    overflow: hidden;
+    background-color: rgb(20, 20, 20);
+    opacity: 0.75;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+  }
+  
+  /* Links inside the navbar */
+.navbar a {
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change background on mouse-over */
+.navbar a:hover {
+    background: #ddd;
+    color: black;
+  }
+
+#main{
+    vertical-align: middle;
+    background-color: blueviolet;
+  }
+  
+#contenu {
+    max-width: auto;
+    float: right;
+  }
+
+#footer {
+  background-color: aqua;
+}
