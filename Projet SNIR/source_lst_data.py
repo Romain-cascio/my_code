@@ -15,22 +15,29 @@ def listing_données():
         lst_prix_piece = []
         lst_poids_piece = []
 
-        db = mc.connect(host = 'localhost', database = 'quincaillerie', user = 'inventoriste', password = 'root') 
+        file = open("ip_bdd.rtf", "r")
+        ligne = file.readlines()
+        ligne = str(ligne)
+        ligne = ligne.split()
+        ligne = ligne[-1]
+        Host = ligne.replace("}", '').replace("'", '').replace("]", '')
+
+        db = mc.connect(host = Host, database = 'quincaillerie', user = 'Inventaire', password = 'Inventaire/789')
         cursor = db.cursor()
 
-        cursor.execute("SELECT nom_piece FROM info_piece")
+        cursor.execute("SELECT nom_piece FROM piece")
         for ligne in cursor.fetchall():
             lst_nom_piece.append(str(ligne))
 
-        cursor.execute("SELECT quantité FROM info_piece")
+        cursor.execute("SELECT quantite_piece FROM piece")
         for ligne in cursor.fetchall():
             lst_quantité_piece.append(str(ligne))
 
-        cursor.execute("SELECT prix FROM info_piece")
+        cursor.execute("SELECT prix_piece FROM piece")
         for ligne in cursor.fetchall():
             lst_prix_piece.append(str(ligne))
 
-        cursor.execute("SELECT poids FROM info_piece")
+        cursor.execute("SELECT poids_piece FROM piece")
         for ligne in cursor.fetchall():
             lst_poids_piece.append(str(ligne))
 

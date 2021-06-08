@@ -7,16 +7,20 @@ import re
 import mysql.connector as mc
 
 def Update_to_base(UpdateName, UpdateQuantite, UpdatePrix, UpdatePoids, n):
-
-    print(UpdateName)
-
     x = 0
     lst_id = []
 
-    db = mc.connect(host = 'localhost', database = 'quincaillerie', user = 'inventoriste', password = 'root') 
+    file = open("ip_bdd.rtf", "r")
+    ligne = file.readlines()
+    ligne = str(ligne)
+    ligne = ligne.split()
+    ligne = ligne[-1]
+    Host = ligne.replace("}", '').replace("'", '').replace("]", '')
+
+    db = mc.connect(host = Host, database = 'quincaillerie', user = 'Inventaire', password = 'Inventaire/789')
     cursor = db.cursor()
 
-    cursor.execute("SELECT id FROM info_piece")
+    cursor.execute("SELECT id FROM piece")
     for ligne in cursor.fetchall():
             lst_id.append(str(ligne))
 
@@ -28,7 +32,3 @@ def Update_to_base(UpdateName, UpdateQuantite, UpdatePrix, UpdatePoids, n):
     cursor.execute("UPDATE info_piece SET nom_piece = %s, quantité = %s, prix = %s, poids = %s WHERE id = %s", (UpdateName, UpdateQuantite, UpdatePrix, UpdatePoids, lst_id[n]))
     db.commit()
     db.close()
-
-
-if __name__ == "__main__":
-    Update_to_base()

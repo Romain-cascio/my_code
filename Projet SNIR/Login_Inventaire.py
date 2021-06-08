@@ -3,8 +3,10 @@
 
 import sys
 import ssl
+import re
 import mysql.connector as mc
 from PyQt5 import QtCore, QtWidgets
+from mysql.connector.errors import DatabaseError
 from Inventaire import Ui_InventaireWindow
 
 try:
@@ -25,14 +27,49 @@ class Ui_LoginInvWindow(object):
 
     def openInventaire(self):
         try:
+            file = open("ip_bdd.rtf", "r")
+            ligne = file.readlines()
+            ligne = str(ligne)
+            ligne = ligne.split()
+            ligne = ligne[-1]
+            Host = ligne.replace("}", '').replace("'", '').replace("]", '')
+
+            inventoriste = '1'
             User = self.User.text()
             Password = self.Password.text()
-            connexion = mc.connect(host = 'localhost', database = 'quincaillerie', user = User, password = Password)
-            self.ui = Ui_InventaireWindow()
-            self.ui.contenu_interface_balance() #modification ici
+
+            connexion = mc.connect(host = Host, database = 'quincaillerie', user = 'User', password = 'Password')
+            cursor = connexion.cursor()
+            cursor.execute("SELECT COUNT(*) AS NB FROM users WHERE Login = '" +User+ "' AND Password = '" +Password+ "' AND inventoriste = " +inventoriste+ ";")
+            count = cursor.fetchone()
+            resultat = str(count).replace("(", '').replace(")", '').replace(",", '')
+            connexion.close()
+
+
+            if(resultat == '1'):
+                print("passe ici")
+                print(User)
+                print(Password)
+                connexion = mc.connect(host = '172.20.10.6', database = 'quincaillerie', user = 'Inventaire', password = 'Inventaire/789')
+                print("toto")
+                self.window = QtWidgets.QDialog()
+                self.ui = Ui_InventaireWindow()
+                self.ui.contenu_interface_balance(self.window)
+                self.window.exec()
+
+            #self.window = QtWidgets.QDialog()
+            #self.ui = Ui_InventaireWindow()
+            #self.ui.contenu_interface_balance(self.window)
+            #self.window.exec()
+
+
+            #self.ui.display_combo_txt()
+            #self.ui.onClicked()
+            #self.ui.Update_data()
+            #self.ui.donne_balance()
 
         except mc.Error as err:
-            QtWidgets.QMessageBox.about(self.label, "Connexion impossible", str(err))
+            QtWidgets.QMessageBox.about(self.label, "Connexion impossible ", str(err))
 
 
     def setupUi(self, LoginWindow):
