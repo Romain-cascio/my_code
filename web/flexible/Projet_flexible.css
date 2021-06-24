@@ -1,0 +1,50 @@
+body {
+    background: linear-gradient(rgb(150, 116, 150), black);
+    font-size: 16px;
+    color:white;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+
+/*---PARTIE TITRE ET IMAGE---*/
+h1 {
+    font-size: 70px;
+    color: white;
+    font-family: Helvetica;
+}
+
+img {
+	width: 600px;
+	height: 600px;
+}
+/*---PARTIE TITRE ET IMAGE---*/
+
+
+/*---INPUTE---*/
+input {
+    border-radius: 100px;
+    width: 300px;
+    height: 85px;
+}
+/*---INPUTE---*/
+
+
+/*---PARTIE BOUTON---*/
+button {
+    margin-top: 150px;
+    border-radius: 100px;
+    width: 730px;
+    height: 150px;
+    background-color: rgb(59, 207, 109);
+}
+
+button:hover {
+    background-color: rgb(102, 209, 137);
+}
+
+button:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+/*---PARTIE BOUTON---*/
